@@ -1,0 +1,49 @@
+{
+  "name": "zig-cc-is-god",
+  "version": "1.0.0",
+  "description": "CMake toolchain generator for zig cc / zig c++",
+  "author": "Hwanhee Kim <kimhappyofficial@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "c",
+    "c++",
+    "zig",
+    "cli",
+    "cmake",
+    "toolchain",
+    "build",
+    "compile",
+    "compiler"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kimhappy/zig-cc-is-god.git"
+  },
+  "bin": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun i && bun script/build.ts",
+    "clear": "rm -rf dist && rm -rf node_modules && rm -f bun.lock",
+    "prepublishOnly": "bun run clear && bun run build"
+  },
+  "dependencies": {
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.18",
+    "@types/yargs": "^17.0.33",
+    "bun-plugin-dts": "^0.3.0"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}
