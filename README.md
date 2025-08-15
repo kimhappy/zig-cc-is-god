@@ -4,10 +4,10 @@
 ## As CLI
 To list all available targets (`zig` installation required),
 ```sh
-bunx github:kimhappy/zig-cc-is-god
+bunx zig-cc-is-god
 ```
 
 To generate toolchain files,
 ```sh
-bunx github:kimhappy/zig-cc-is-god -t aarch64-macos-none x86_64-macos-none -o toolchains
+bunx zig-cc-is-god -t aarch64-macos-none x86_64-macos-none -o toolchains
 ```
