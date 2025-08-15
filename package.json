@@ -1,6 +1,6 @@
 {
   "name": "zig-cc-is-god",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CMake toolchain generator for zig cc / zig c++",
   "author": "Hwanhee Kim <kimhappyofficial@gmail.com>",
   "license": "MIT",

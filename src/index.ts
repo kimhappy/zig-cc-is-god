@@ -1,19 +1,17 @@
-import { existsSync, mkdirSync } from 'fs'
-import { writeFile             } from 'fs/promises'
-import   path                    from 'path'
+import { existsSync, mkdirSync } from 'node:fs'
+import { writeFile             } from 'node:fs/promises'
+import   path                    from 'node:path'
 import   yargs                   from 'yargs'
 import { hideBin               } from 'yargs/helpers'
 
 export const getTargetTriples = async (): Promise< string[] > => {
   const proc = Bun.spawnSync(['zig', 'targets'], { stdio: ['ignore', 'pipe', 'pipe'] })
 
-  if (proc.signalCode) {
+  if (proc.signalCode)
     throw new Error(`\`zig targets\` failed with signal ${ proc.signalCode }\n${ proc.stderr.toString() }`)
-  }
 
-  if (!proc.success) {
+  if (!proc.success)
     throw new Error(`\`zig targets\` failed with exit code ${ proc.exitCode }\n${ proc.stderr.toString() }`)
-  }
 
   const output        = proc.stdout.toString()
   const libcMatch     = output.match(/\.libc\s*=\s*\.(\{[^}]*\})/)![ 1 ]
@@ -96,14 +94,12 @@ const main = async (): Promise< void > => {
     const invalidTargets = argv.target.filter(
       target => !zigTargets.includes(target))
 
-    if (invalidTargets.length > 0) {
+    if (invalidTargets.length > 0)
       throw new Error(`Invalid targets:\n${ invalidTargets.join('\n') }`)
-    }
   }
 
-  if (!existsSync(argv.output)) {
+  if (!existsSync(argv.output))
     mkdirSync(argv.output, { recursive: true })
-  }
 
   await Promise.all(argv.target.map(async (target: string) => {
     const outPath   = path.join(argv.output, `${ target }.cmake`)
@@ -112,12 +108,5 @@ const main = async (): Promise< void > => {
   }))
 }
 
-if (import.meta.main) {
-  try {
-    await main()
-  }
-  catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
-}
+if (import.meta.main)
+  await main()
