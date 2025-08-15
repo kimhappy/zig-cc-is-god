@@ -39,6 +39,8 @@ export const getToolchain = (targetTriple: string): string => {
 endif ()
 
 find_program ( ZIG_EXECUTABLE zig REQUIRED )
+set ( CMAKE_SYSTEM_NAME "${ CMAKE_SYSTEM_NAME }" )
+set ( CMAKE_SYSTEM_PROCESSOR "${ CMAKE_SYSTEM_PROCESSOR }" )
 set ( ZIG_TARGET "${ targetTriple }")
 
 set ( CMAKE_C_COMPILER \${ZIG_EXECUTABLE} )
@@ -51,14 +53,10 @@ set ( CMAKE_CXX_COMPILER_ARG1 "c++" )
 set ( CMAKE_CXX_COMPILER_ARG2 "-target" )
 set ( CMAKE_CXX_COMPILER_ARG3 \${ZIG_TARGET} )
 
-set ( CMAKE_AR \${ZIG_EXECUTABLE} )
-set ( CMAKE_AR_ARG1 "ar" )
+set ( CMAKE_AR \"\${ZIG_EXECUTABLE} ar\" CACHE STRING "" FORCE )
+set ( CMAKE_RANLIB \"\${ZIG_EXECUTABLE} ranlib\" CACHE STRING "" FORCE )
 
-set ( CMAKE_RANLIB \${ZIG_EXECUTABLE} )
-set ( CMAKE_RANLIB_ARG1 "ranlib" )
-
-set ( CMAKE_SYSTEM_NAME "${ CMAKE_SYSTEM_NAME }" )
-set ( CMAKE_SYSTEM_PROCESSOR "${ CMAKE_SYSTEM_PROCESSOR }" )
+set ( CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY" )
 `
 }
 
