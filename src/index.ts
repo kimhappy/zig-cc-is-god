@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { existsSync, mkdirSync } from 'node:fs'
 import { writeFile             } from 'node:fs/promises'
 import   path                    from 'node:path'
