@@ -22,7 +22,7 @@ export const getTargetTriples = async (): Promise< string[] > => {
 }
 
 export const getToolchain = (targetTriple: string): string => {
-  const [ZIG_ARCH, ZIG_OS, ZIG_LIBC] = targetTriple.split('-')
+  const [ZIG_ARCH, ZIG_OS, _ZIG_LIBC] = targetTriple.split('-')
 
   const CMAKE_SYSTEM_NAME = {
     'windows': 'Windows',
@@ -39,12 +39,17 @@ export const getToolchain = (targetTriple: string): string => {
 endif ()
 
 find_program ( ZIG_EXECUTABLE zig REQUIRED )
+set ( ZIG_TARGET "${ targetTriple }")
 
 set ( CMAKE_C_COMPILER \${ZIG_EXECUTABLE} )
 set ( CMAKE_C_COMPILER_ARG1 "cc" )
+set ( CMAKE_C_COMPILER_ARG2 "-target" )
+set ( CMAKE_C_COMPILER_ARG3 "\${ ZIG_TARGET }" )
 
 set ( CMAKE_CXX_COMPILER \${ZIG_EXECUTABLE} )
 set ( CMAKE_CXX_COMPILER_ARG1 "c++" )
+set ( CMAKE_CXX_COMPILER_ARG2 "-target" )
+set ( CMAKE_CXX_COMPILER_ARG3 "\${ ZIG_TARGET }" )
 
 set ( CMAKE_AR \${ZIG_EXECUTABLE} )
 set ( CMAKE_AR_ARG1 "ar" )
@@ -52,13 +57,9 @@ set ( CMAKE_AR_ARG1 "ar" )
 set ( CMAKE_RANLIB \${ZIG_EXECUTABLE} )
 set ( CMAKE_RANLIB_ARG1 "ranlib" )
 
-set ( ZIG_ARCH "${ ZIG_ARCH }" )
-set ( ZIG_OS "${ ZIG_OS }" )
-set ( ZIG_LIBC "${ ZIG_LIBC }" )
-
-set ( ZIG_TARGET "\${ZIG_ARCH}-\${ZIG_OS}-\${ZIG_LIBC}")
 set ( CMAKE_SYSTEM_NAME "${ CMAKE_SYSTEM_NAME }" )
-set ( CMAKE_SYSTEM_PROCESSOR "${ CMAKE_SYSTEM_PROCESSOR }" )`
+set ( CMAKE_SYSTEM_PROCESSOR "${ CMAKE_SYSTEM_PROCESSOR }" )
+`
 }
 
 const main = async (): Promise< void > => {

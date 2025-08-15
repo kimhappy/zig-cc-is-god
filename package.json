@@ -1,17 +1,17 @@
 {
   "name": "zig-cc-is-god",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "CMake toolchain generator for zig cc / zig c++",
   "author": "Hwanhee Kim <kimhappyofficial@gmail.com>",
   "license": "MIT",
   "type": "module",
   "keywords": [
-    "c",
-    "c++",
     "zig",
-    "cli",
     "cmake",
     "toolchain",
+    "c",
+    "c++",
+    "cli",
     "build",
     "compile",
     "compiler"
